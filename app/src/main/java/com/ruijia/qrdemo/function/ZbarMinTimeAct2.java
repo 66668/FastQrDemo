@@ -122,6 +122,8 @@ public class ZbarMinTimeAct2 extends AppCompatActivity implements ContinueQRCode
             mZBarView.getScanBoxView().setOnlyDecodeScanBoxArea(false); // 仅识别扫描框中的码
 //            mZBarView.startCamera(cameraId); // 打开前置摄像头开始预览，但是并未开始识别
             mZBarView.startSpot(); // 显示扫描框，并且延迟0.1秒后开始识别
+            //
+            receiveTime = System.currentTimeMillis();
         }
     }
 

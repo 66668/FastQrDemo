@@ -10,8 +10,8 @@
     <!--相机预览+扫描框-->
     <lib.ruijia.zbar.ZBarContinueView
         android:id="@+id/zbarview"
-        android:layout_width="320dp"
-        android:layout_height="480dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:qrcv_animTime="1000"
         app:qrcv_barCodeTipText="将条码放入框内，即可自动扫描"
         app:qrcv_barcodeRectHeight="140dp"
