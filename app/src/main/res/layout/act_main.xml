@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ly_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".MainAct">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_open"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:text="开路 二维码连续发送"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_zxing_close"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Zxing闭路等待识别"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_zbar_close"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Zbar闭路等待识别"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_zbar_open"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Zbar开路连续识别"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_zbar_open_close"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Zbar开路+闭路高效传输"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_zxing_open"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Zxing开路连续识别"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_zxing_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Zxing连续识别极限测试"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_zbar_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Zbar连续识别极限测试（优化前）"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_zbar_time2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Zbar连续识别极限测试（优化后）"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_zbar_pic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="zbar传图"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_zbar_zip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="zbar传zip文件"
+                android:textAllCaps="false" />
+
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>

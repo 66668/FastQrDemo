@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ly_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".function.ZxingCloseAct">
+    <!--放预览-->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="800px">
+        <!--相机预览+扫描框-->
+        <lib.ruijia.zxing.scan.DecoratedBarcodeView
+            android:layout_marginTop="-80px"
+            android:id="@+id/zxing_barcode_scanner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="160px"
+            android:layout_marginEnd="160px"
+            app:zxing_preview_scaling_strategy="fitXY"
+            app:zxing_use_texture_view="false">
+
+        </lib.ruijia.zxing.scan.DecoratedBarcodeView>
+
+    </FrameLayout>
+
+    <!--放二维码-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:background="@null"
+            android:id="@+id/btn_select"
+            android:layout_width="40dp"
+            android:layout_height="20dp"
+            android:textSize="8sp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:text="选择" />
+
+        <Button
+            android:id="@+id/btn_show"
+            android:layout_width="40dp"
+            android:layout_height="20dp"
+            android:textSize="8sp"
+            android:background="@null"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/btn_select"
+            android:text="发送"
+            android:visibility="gone" />
+
+        <!--识别结果-->
+        <ImageView
+            android:id="@+id/barcodePreview"
+            android:layout_width="@dimen/qr_img_size"
+            android:layout_height="@dimen/qr_img_size"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="0dp"
+            android:background="@drawable/ic_launcher_background" />
+    </RelativeLayout>
+
+
+</FrameLayout>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ruijia.qrdemo">
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!--<uses-feature android:name="android.hardware.camera.autofocus" />-->
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <!-- Don't require camera, as this requires a rear camera. This allows it to work on the Nexus 7 -->
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera.front"
+        android:required="false" />
+    <!-- TODO replace above two with next line after Android 4.2 -->
+    <!-- <uses-feature android:name="android.hardware.camera.any"/> -->
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera.flash"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.screen.landscape"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.wifi"
+        android:required="false" />
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppCompatCaptureTheme">
+
+        <activity
+            android:name=".MainAct"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".SendMainAct"
+            android:screenOrientation="portrait"></activity>
+        <!--zxing-->
+        <activity
+            android:name=".function.ZxingCloseAct"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".function.ZxingOpenAct"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".function.ZxingMinTimeAct"
+            android:screenOrientation="portrait"></activity>
+
+        <!--zbar-->
+        <activity
+            android:name=".function.ZbarMinTimeAct"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".function.ZbarMinTimeAct2"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".function.ZbarCloseAct"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".function.ZbarOpenAndCloseAct"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".function.ZbarPicAct"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".function.ZbarZIPAct"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".function.ZbarOpenAct"
+            android:screenOrientation="portrait"></activity>
+
+    </application>
+
+</manifest>
