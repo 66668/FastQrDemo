@@ -99,6 +99,8 @@ public class ZxingMinTimeAct extends AppCompatActivity {
             barcodeView.getBarcodeView().setCameraSettings(settings);
             barcodeView.decodeContinuous(callback);
             barcodeView.resume();
+            //
+            receiveTime = System.currentTimeMillis();
         }
     }
 

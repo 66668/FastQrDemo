@@ -33,7 +33,7 @@ public abstract class ContinueQRCodeView extends RelativeLayout implements Camer
     protected Handler mHandler;
     protected ContinueProcessDataTask mProcessDataTask;
     //    protected int mCameraId = Camera.CameraInfo.CAMERA_FACING_FRONT;
-    protected int mCameraId = Camera.CameraInfo.CAMERA_FACING_BACK;
+    protected int mCameraId = Camera.CameraInfo.CAMERA_FACING_BACK;//Camera.CameraInfo.CAMERA_FACING_BACK /Camera.CameraInfo.CAMERA_FACING_BACK
     private PointF[] mLocationPoints;
     private Paint mPaint;
     protected BarcodeType mBarcodeType = BarcodeType.HIGH_FREQUENCY;
@@ -118,21 +118,30 @@ public abstract class ContinueQRCodeView extends RelativeLayout implements Camer
      * 打开指定摄像头开始预览，但是并未开始识别
      */
     public void startCamera(int cameraFacing) {
+        //排除 onResume onCreate 两次初始化的调用，保证打开界面后，只调用一次
         if (mCamera != null) {
             return;
         }
         Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
+        //正常手机调用
         for (int cameraId = 0; cameraId < Camera.getNumberOfCameras(); cameraId++) {
             Camera.getCameraInfo(cameraId, cameraInfo);
+            Log.d("SJY", "cameraInfo.facing=" + cameraInfo.facing + "--cameraFacing=" + cameraFacing);
+
             if (cameraInfo.facing == cameraFacing) {
                 startCameraById(cameraId);
                 break;
+            } else {
+                // TODO 对于非手机的设备，调用此处会黑屏，原因是定制设备的camera不标准，需特殊设置。
+                startCameraById(cameraId);
+                Log.e("SJY", "ContinueQRCodeView--startCamera(int cameraFacing)--打开相机预览失败");
             }
         }
     }
 
     private void startCameraById(int cameraId) {
         try {
+            Log.d("SJY", "ContinueQRCodeView--startCameraById");
             mCameraId = cameraId;
             mCamera = Camera.open(cameraId);
             mCameraPreview.setCamera(mCamera);
