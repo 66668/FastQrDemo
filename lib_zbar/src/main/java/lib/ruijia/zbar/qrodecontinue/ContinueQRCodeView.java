@@ -132,7 +132,7 @@ public abstract class ContinueQRCodeView extends RelativeLayout implements Camer
                 startCameraById(cameraId);
                 break;
             } else {
-                // TODO 对于非手机的设备，调用此处会黑屏，原因是定制设备的camera不标准，需特殊设置。
+                // TODO 对于非手机的设备，会走这一步，原因是定制设备的camera不标准，需特殊设置，所以添加了这个方法
                 startCameraById(cameraId);
                 Log.e("SJY", "ContinueQRCodeView--startCamera(int cameraFacing)--打开相机预览失败");
             }
