@@ -87,6 +87,16 @@
             android:name=".function.ZbarOpenAct"
             android:screenOrientation="portrait"></activity>
 
+        <!--取帧拍照-->
+        <activity
+            android:name=".function.ZbarFrameAct"
+            android:screenOrientation="portrait"></activity>
+
+        <!--取帧识别-->
+        <activity
+            android:name=".function.ZbarFrameAct2"
+            android:screenOrientation="portrait"></activity>
+
     </application>
 
 </manifest>

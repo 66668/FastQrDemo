@@ -44,7 +44,7 @@ public class SendMainAct extends AppCompatActivity implements View.OnClickListen
     private List<String> orgDatas = new ArrayList<>();//发送数据
     private int sendTimes = 0;//发送次数，
     String a = "";
-    private int length = 1024;//默认1024，最大2952
+    private int length = 100;//默认1024，最大2952
 
     /**
      * 发送二维码
@@ -71,7 +71,7 @@ public class SendMainAct extends AppCompatActivity implements View.OnClickListen
      * 重新初始化流程控制参数
      */
     private void initParams() {
-        length = 1024;
+        length = 100;
         sendTimes = 0;
         a = "";
         orgDatas = new ArrayList<>();
@@ -134,8 +134,10 @@ public class SendMainAct extends AppCompatActivity implements View.OnClickListen
                 //文件选择器
                 FilePicker picker = new FilePicker(this, FilePicker.FILE);
                 picker.setShowHideDir(false);
-                picker.setAllowExtensions(new String[]{".txt"});
-                picker.setRootPath(Environment.getExternalStorageDirectory().getAbsolutePath());
+                picker.setAllowExtensions(new String[]{".txt", ".jpg", ".png", ".zip", ".rar",".jpeg"});
+                //TODO 路径配置
+//                picker.setRootPath(Environment.getExternalStorageDirectory().getAbsolutePath());
+                picker.setRootPath("/storage/emulated/legacy/");
                 picker.setFileIcon(getResources().getDrawable(android.R.drawable.ic_menu_agenda));
                 picker.setFolderIcon(getResources().getDrawable(android.R.drawable.ic_menu_upload_you_tube));
                 //picker.setArrowIcon(getResources().getDrawable(android.R.drawable.arrow_down_float));
@@ -156,14 +158,14 @@ public class SendMainAct extends AppCompatActivity implements View.OnClickListen
                 startShow();
                 break;
             case R.id.btn_add:
-                length += 512;
+                length += 412;
                 if (length > 2952) {
                     length = 2952;
                 }
                 tv_show.setText("字符长度=" + length);
                 break;
             case R.id.btn_single:
-                a="";
+                a = "";
                 for (int i = 0; i < length; i++) {
                     a += "a";
                 }

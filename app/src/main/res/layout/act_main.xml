@@ -24,8 +24,23 @@
                 android:id="@+id/btn_open"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
+
                 android:text="开路 二维码连续发送"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_zbar_frame"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="（1）Zbar取帧-拍照"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btn_zbar_frame2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:text="（2）Zbar取帧-识别"
                 android:textAllCaps="false" />
 
             <Button
@@ -83,6 +98,7 @@
                 android:layout_height="wrap_content"
                 android:text="Zbar连续识别极限测试（优化后）"
                 android:textAllCaps="false" />
+
 
             <Button
                 android:id="@+id/btn_zbar_pic"

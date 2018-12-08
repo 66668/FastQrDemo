@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 
 import com.ruijia.qrdemo.function.ZbarCloseAct;
+import com.ruijia.qrdemo.function.ZbarFrameAct;
+import com.ruijia.qrdemo.function.ZbarFrameAct2;
 import com.ruijia.qrdemo.function.ZbarMinTimeAct;
 import com.ruijia.qrdemo.function.ZbarMinTimeAct2;
 import com.ruijia.qrdemo.function.ZbarOpenAct;
@@ -20,7 +22,7 @@ import com.ruijia.qrdemo.function.ZxingOpenAct;
 
 public class MainAct extends AppCompatActivity implements View.OnClickListener {
     Button btn_zxing_close, btn_zbar_close, btn_zxing_open, btn_zbar_open, btn_open, btn_zxing_time, btn_zbar_time,
-            btn_zbar_time2, btn_zbar_open_close, btn_zbar_pic,btn_zbar_zip;
+            btn_zbar_time2, btn_zbar_open_close, btn_zbar_pic, btn_zbar_zip, btn_zbar_frame, btn_zbar_frame2;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,6 +42,8 @@ public class MainAct extends AppCompatActivity implements View.OnClickListener {
         btn_zbar_close = findViewById(R.id.btn_zbar_close);
         btn_zxing_open = findViewById(R.id.btn_zxing_open);
         btn_zbar_open = findViewById(R.id.btn_zbar_open);
+        btn_zbar_frame = findViewById(R.id.btn_zbar_frame);
+        btn_zbar_frame2 = findViewById(R.id.btn_zbar_frame2);
         btn_zxing_close.setOnClickListener(this);
         btn_zbar_time.setOnClickListener(this);
         btn_zbar_zip.setOnClickListener(this);
@@ -51,6 +55,8 @@ public class MainAct extends AppCompatActivity implements View.OnClickListener {
         btn_zxing_open.setOnClickListener(this);
         btn_zbar_open.setOnClickListener(this);
         btn_open.setOnClickListener(this);
+        btn_zbar_frame.setOnClickListener(this);
+        btn_zbar_frame2.setOnClickListener(this);
     }
 
     @Override
@@ -77,6 +83,10 @@ public class MainAct extends AppCompatActivity implements View.OnClickListener {
             startActivity(new Intent(MainAct.this, ZbarPicAct.class));
         } else if (v == btn_zbar_zip) {//zip
             startActivity(new Intent(MainAct.this, ZbarZIPAct.class));
+        } else if (v == btn_zbar_frame) {//zbar取帧拍照
+            startActivity(new Intent(MainAct.this, ZbarFrameAct.class));
+        } else if (v == btn_zbar_frame2) {//zbar取帧识别
+            startActivity(new Intent(MainAct.this, ZbarFrameAct2.class));
         }
     }
 }

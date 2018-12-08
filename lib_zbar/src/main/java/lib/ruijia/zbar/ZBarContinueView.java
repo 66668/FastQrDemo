@@ -93,11 +93,21 @@ public class ZBarContinueView extends ContinueQRCodeView {
         setupReader();
     }
 
+    /**
+     * 拿到已处理好的一帧数据
+     *
+     * @param data
+     * @param width
+     * @param height
+     * @param isRetry
+     * @return
+     */
     @Override
     public ContinueScanResult processData(byte[] data, int width, int height, boolean isRetry) {
         Image barcode = new Image(width, height, "Y800");
 
         Rect scanBoxAreaRect = mScanBoxView.getScanBoxAreaRect(height);
+        //是否在扫描框内识别qr
         if (scanBoxAreaRect != null && !isRetry && scanBoxAreaRect.left + scanBoxAreaRect.width() <= width
                 && scanBoxAreaRect.top + scanBoxAreaRect.height() <= height) {
             barcode.setCrop(scanBoxAreaRect.left, scanBoxAreaRect.top, scanBoxAreaRect.width(), scanBoxAreaRect.height());

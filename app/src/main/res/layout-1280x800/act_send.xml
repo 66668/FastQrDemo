@@ -115,8 +115,8 @@
     <!--识别结果-->
     <ImageView
         android:id="@+id/barcodePreview"
-        android:layout_width="900px"
-        android:layout_height="900px"
+        android:layout_width="@dimen/qr_img_size"
+        android:layout_height="@dimen/qr_img_size"
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
         android:layout_centerHorizontal="true"

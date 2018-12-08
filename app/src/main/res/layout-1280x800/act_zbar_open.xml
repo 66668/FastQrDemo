@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ly_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".function.ZxingCloseAct">
+    <!--放预览-->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <!--相机预览+扫描框-->
+        <lib.ruijia.zbar.ZBarView
+            android:id="@+id/zbarview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:qrcv_animTime="1000"
+            app:qrcv_barCodeTipText="将条码放入框内，即可自动扫描"
+            app:qrcv_barcodeRectHeight="140dp"
+            app:qrcv_borderColor="@android:color/white"
+            app:qrcv_borderSize="1dp"
+            app:qrcv_cornerColor="@color/colorPrimaryDark"
+            app:qrcv_cornerLength="20dp"
+            app:qrcv_cornerSize="3dp"
+            app:qrcv_customGridScanLineDrawable="@mipmap/custom_grid_scan_line"
+            app:qrcv_isBarcode="false"
+            app:qrcv_isOnlyDecodeScanBoxArea="false"
+            app:qrcv_isShowDefaultGridScanLineDrawable="true"
+            app:qrcv_isShowDefaultScanLineDrawable="true"
+            app:qrcv_isShowLocationPoint="false"
+            app:qrcv_isShowTipBackground="true"
+            app:qrcv_isShowTipTextAsSingleLine="false"
+            app:qrcv_isTipTextBelowRect="false"
+            app:qrcv_maskColor="#33FFFFFF"
+            app:qrcv_qrCodeTipText="这是提示"
+            app:qrcv_rectWidth="800px"
+            app:qrcv_scanLineColor="@color/colorPrimaryDark"
+            app:qrcv_toolbarHeight="0dp"
+            app:qrcv_topOffset="0dp"
+            app:qrcv_verticalBias="-1" />
+
+    </FrameLayout>
+
+    <!--放二维码-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/btn_select"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:layout_above="@+id/barcodePreview"
+            android:layout_alignParentEnd="true"
+            android:background="@null"
+            android:textColor="@android:color/white"
+            android:gravity="end|center_vertical"
+            android:text="选择"
+            android:textSize="10sp" />
+
+        <Button
+            android:id="@+id/btn_show"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:layout_above="@+id/btn_select"
+            android:layout_alignParentEnd="true"
+            android:background="@null"
+            android:text="发送"
+            android:gravity="end|center_vertical"
+            android:layout_marginBottom="100px"
+            android:textSize="10sp"
+            android:textColor="@android:color/white"
+            android:visibility="gone" />
+
+        <!--识别结果-->
+        <ImageView
+            android:id="@+id/barcodePreview"
+            android:layout_width="@dimen/qr_img_size"
+            android:layout_height="@dimen/qr_img_size"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="0dp"
+            android:background="@drawable/ic_launcher_background" />
+    </RelativeLayout>
+
+
+</FrameLayout>
