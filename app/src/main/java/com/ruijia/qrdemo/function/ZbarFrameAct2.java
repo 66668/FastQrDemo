@@ -17,6 +17,7 @@ import lib.ruijia.zbar.qrcodecore.BarcodeType;
 import lib.ruijia.zbar.qrodecontinue.ContinueQRCodeView;
 
 /**
+ * TODO  未做
  * 优化后，lib库zbar持续识别
  * <p>
  * zbar取帧 识别
