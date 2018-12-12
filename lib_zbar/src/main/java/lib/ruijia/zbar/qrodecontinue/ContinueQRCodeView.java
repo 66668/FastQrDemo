@@ -126,7 +126,7 @@ public abstract class ContinueQRCodeView extends RelativeLayout implements Camer
         //正常手机调用
         for (int cameraId = 0; cameraId < Camera.getNumberOfCameras(); cameraId++) {
             Camera.getCameraInfo(cameraId, cameraInfo);
-            Log.d("SJY", "cameraInfo.facing=" + cameraInfo.facing + "--cameraFacing=" + cameraFacing);
+            Log.d("SJY", "cameraInfo.facing=" + cameraInfo.facing + "--cameraFacing=" + cameraFacing+"--cameraId="+cameraId);
 
             if (cameraInfo.facing == cameraFacing) {
                 startCameraById(cameraId);
