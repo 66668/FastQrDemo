@@ -44,7 +44,7 @@ public class SendMainAct extends AppCompatActivity implements View.OnClickListen
     private List<String> orgDatas = new ArrayList<>();//发送数据
     private int sendTimes = 0;//发送次数，
     String a = "";
-    private int length = 100;//默认1024，最大2952
+    private int length = 1025;//默认1024，最大2952
 
     /**
      * 发送二维码
@@ -158,7 +158,7 @@ public class SendMainAct extends AppCompatActivity implements View.OnClickListen
                 startShow();
                 break;
             case R.id.btn_add:
-                length += 412;
+                length += 512;
                 if (length > 2952) {
                     length = 2952;
                 }
