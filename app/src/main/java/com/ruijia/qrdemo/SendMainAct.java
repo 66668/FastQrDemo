@@ -110,6 +110,7 @@ public class SendMainAct extends AppCompatActivity implements View.OnClickListen
         btn_sure = findViewById(R.id.btn_sure);
         btn_show = findViewById(R.id.btn_show);
         btn_show.setVisibility(View.GONE);
+        btn_length.setOnClickListener(this);
         btn_show.setOnClickListener(this);
         btn_sure.setOnClickListener(this);
         btn_add.setOnClickListener(this);
