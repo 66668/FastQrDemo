@@ -40,7 +40,7 @@
         android:theme="@style/AppCompatCaptureTheme">
 
         <activity
-            android:name=".MainAct"
+            android:name="com.ruijia.qrdemo.MainAct"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
