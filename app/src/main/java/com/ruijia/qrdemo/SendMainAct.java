@@ -36,15 +36,15 @@ public class SendMainAct extends AppCompatActivity implements View.OnClickListen
     private int sendDelay = LIM;
     private TextView tv_show;
     private ImageView img_result;
-    private Button btn_select, btn_show, btn_sure, btn_single, btn_add;
-    private EditText et_input;
+    private Button btn_select, btn_show, btn_sure, btn_single, btn_add, btn_length;
+    private EditText et_input, et_length;
     private Handler handler;
 
     //test数据
     private List<String> orgDatas = new ArrayList<>();//发送数据
     private int sendTimes = 0;//发送次数，
     String a = "";
-    private int length = 1025;//默认1024，最大2952
+    private int length = 100;//默认1024，最大2952
 
     /**
      * 发送二维码
@@ -100,6 +100,8 @@ public class SendMainAct extends AppCompatActivity implements View.OnClickListen
     private void initView() {
         handler = new Handler();
         //控件
+        et_length = findViewById(R.id.et_length);
+        btn_length = findViewById(R.id.btn_length);
         tv_show = findViewById(R.id.tv_show);
         btn_add = findViewById(R.id.btn_add);
         btn_single = findViewById(R.id.btn_single);
@@ -134,7 +136,7 @@ public class SendMainAct extends AppCompatActivity implements View.OnClickListen
                 //文件选择器
                 FilePicker picker = new FilePicker(this, FilePicker.FILE);
                 picker.setShowHideDir(false);
-                picker.setAllowExtensions(new String[]{".txt", ".jpg", ".png", ".zip", ".rar",".jpeg"});
+                picker.setAllowExtensions(new String[]{".txt", ".jpg", ".png", ".zip", ".rar", ".jpeg"});
                 //TODO 路径配置
 //                picker.setRootPath(Environment.getExternalStorageDirectory().getAbsolutePath());
                 picker.setRootPath("/storage/emulated/legacy/");
@@ -182,6 +184,19 @@ public class SendMainAct extends AppCompatActivity implements View.OnClickListen
                     sendDelay = Integer.parseInt(str);
                     et_input.setText("");
                     et_input.setHint("选中间隔" + sendDelay);
+                }
+                break;
+
+            case R.id.btn_length://
+                String str1 = et_length.getText().toString();
+                if (TextUtils.isEmpty(str1)) {
+                    length = 100;
+                    et_length.setText("");
+                    et_length.setHint("二维码长度" + length);
+                } else {
+                    length = Integer.parseInt(str1);
+                    et_length.setText("");
+                    et_length.setHint("二维码长度" + length);
                 }
                 break;
         }

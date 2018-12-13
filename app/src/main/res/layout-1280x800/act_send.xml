@@ -34,6 +34,35 @@
             android:text="确定" />
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/et_length"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:hint="二维码长度"
+            android:inputType="number"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="ms" />
+
+        <Button
+            android:id="@+id/btn_length"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="确定" />
+    </LinearLayout>
+
     <TextView
         android:id="@+id/tv_show"
         android:layout_width="match_parent"
