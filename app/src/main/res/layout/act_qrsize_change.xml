@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?><!--放二维码-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#c9c6c6"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:ignore="MissingDefaultResource">
+
+    <RelativeLayout
+        android:id="@+id/ly_img"
+        android:layout_width="match_parent"
+        android:layout_height="850px"
+        android:layout_alignParentTop="true">
+        <!--识别结果-->
+        <ImageView
+            android:id="@+id/img_result"
+            android:layout_width="800px"
+            android:layout_height="800px"
+            android:layout_centerInParent="true"
+            android:background="@drawable/ic_launcher_background" />
+    </RelativeLayout>
+
+    <!--控制台-->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/ly_img"
+        android:layout_marginBottom="50dp"
+        android:background="@android:color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="参数配置：" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/et_qr"
+                    android:layout_width="200dp"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:hint="二维码长度"
+                    android:inputType="number"
+                    android:textSize="13sp" />
+
+
+                <Button
+                    android:id="@+id/btn_qr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="确定" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/et_img"
+                    android:layout_width="200dp"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:hint="ImageView尺寸,默认800"
+                    android:inputType="number"
+                    android:textSize="13sp" />
+
+
+                <Button
+                    android:id="@+id/btn_imgSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="确定" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/et_qrSize"
+                    android:layout_width="200dp"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:hint="qrBitmap尺寸,默认800"
+                    android:inputType="number"
+                    android:textSize="13sp" />
+
+
+                <Button
+                    android:id="@+id/btn_qrSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="确定" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_reset"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="#ff0000"
+            android:text="重置" />
+
+
+        <Button
+            android:id="@+id/btn_show"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="#22ff00"
+            android:text="显示结果" />
+
+
+    </LinearLayout>
+
+</RelativeLayout>
+

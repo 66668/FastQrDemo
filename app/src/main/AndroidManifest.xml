@@ -49,9 +49,16 @@
             </intent-filter>
         </activity>
 
+        <!--生成二维码-->
         <activity
             android:name=".SendMainAct"
             android:screenOrientation="portrait"></activity>
+
+        <!--二维码显示优化-->
+        <activity
+            android:name=".function.QrSizeChangeAct"
+            android:screenOrientation="portrait"></activity>
+
         <!--zxing-->
         <activity
             android:name=".function.ZxingCloseAct"
