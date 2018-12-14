@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import android.hardware.Camera;
 import android.os.AsyncTask;
 import android.text.TextUtils;
-import android.util.Log;
 
 import java.lang.ref.WeakReference;
 

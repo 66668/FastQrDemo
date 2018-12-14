@@ -7,7 +7,6 @@ import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.Rect;
 import android.hardware.Camera;
-import android.os.AsyncTask;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -19,13 +18,14 @@ import lib.ruijia.zbar.R;
 import lib.ruijia.zbar.qrcodecore.BarcodeType;
 
 /**
- * 自定义控件，封装相机预览和取帧识别操作
+ * 相机+预览管理
  */
 public abstract class ContinueQRCodeView extends RelativeLayout implements Camera.PreviewCallback {
     /**
-     * TODO 识别的最小延时，避免相机还未初始化完成
+     * 识别的最小延时，避免相机还未初始化完成
      */
-    public static final int SPOT_MIN_DELAY = 100;//100
+    public static final int SPOT_MIN_DELAY = 40;//100
+    public static final String TAG = "qrCamera";
     protected Camera mCamera;
     protected ContinueCameraPreview mCameraPreview;
     protected ContinueScanBoxView mScanBoxView;//扫描框
@@ -33,7 +33,7 @@ public abstract class ContinueQRCodeView extends RelativeLayout implements Camer
     protected Handler mHandler;
     protected ContinueProcessDataTask mProcessDataTask;
     //    protected int mCameraId = Camera.CameraInfo.CAMERA_FACING_FRONT;
-    protected int mCameraId = Camera.CameraInfo.CAMERA_FACING_BACK;//Camera.CameraInfo.CAMERA_FACING_BACK /Camera.CameraInfo.CAMERA_FACING_BACK
+    protected int mCameraId = Camera.CameraInfo.CAMERA_FACING_BACK;
     private PointF[] mLocationPoints;
     private Paint mPaint;
     protected BarcodeType mBarcodeType = BarcodeType.HIGH_FREQUENCY;
@@ -41,19 +41,16 @@ public abstract class ContinueQRCodeView extends RelativeLayout implements Camer
 
     public ContinueQRCodeView(Context context, AttributeSet attributeSet) {
         this(context, attributeSet, 0);
-
     }
 
     public ContinueQRCodeView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        Log.e("SJY", "ContinueQRCodeView--xml初始化");
         mHandler = new Handler();
         initView(context, attrs);
         setupReader();
     }
 
     private void initView(Context context, AttributeSet attrs) {
-        Log.e("SJY", "打开预览");
         mCameraPreview = new ContinueCameraPreview(context);
 
         mScanBoxView = new ContinueScanBoxView(context);
@@ -118,30 +115,24 @@ public abstract class ContinueQRCodeView extends RelativeLayout implements Camer
      * 打开指定摄像头开始预览，但是并未开始识别
      */
     public void startCamera(int cameraFacing) {
-        //排除 onResume onCreate 两次初始化的调用，保证打开界面后，只调用一次
         if (mCamera != null) {
             return;
         }
         Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
-        //正常手机调用
         for (int cameraId = 0; cameraId < Camera.getNumberOfCameras(); cameraId++) {
             Camera.getCameraInfo(cameraId, cameraInfo);
-            Log.d("SJY", "cameraInfo.facing=" + cameraInfo.facing + "--cameraFacing=" + cameraFacing+"--cameraId="+cameraId);
-
+            //TODO 方式1：zbar用于正常手机
             if (cameraInfo.facing == cameraFacing) {
                 startCameraById(cameraId);
                 break;
-            } else {
-                // TODO 对于非手机的设备，会走这一步，原因是定制设备的camera不标准，需特殊设置，所以添加了这个方法
-                startCameraById(cameraId);
-                Log.e("SJY", "ContinueQRCodeView--startCamera(int cameraFacing)--打开相机预览失败");
             }
+            //TODO 方式2： zbar用于特殊设备
+//            startCameraById(cameraId);
         }
     }
 
     private void startCameraById(int cameraId) {
         try {
-            Log.d("SJY", "ContinueQRCodeView--startCameraById");
             mCameraId = cameraId;
             mCamera = Camera.open(cameraId);
             mCameraPreview.setCamera(mCamera);
@@ -187,8 +178,8 @@ public abstract class ContinueQRCodeView extends RelativeLayout implements Camer
         startCamera();
         // 开始前先移除之前的任务
         if (mHandler != null) {
-            mHandler.removeCallbacks(mOneShotPreviewCallbackTask);
-            mHandler.postDelayed(mOneShotPreviewCallbackTask, delay);
+            mHandler.removeCallbacks(continuePreviewCallbackTask);
+            mHandler.postDelayed(continuePreviewCallbackTask, delay);
         }
     }
 
@@ -211,7 +202,7 @@ public abstract class ContinueQRCodeView extends RelativeLayout implements Camer
         }
 
         if (mHandler != null) {
-            mHandler.removeCallbacks(mOneShotPreviewCallbackTask);
+            mHandler.removeCallbacks(continuePreviewCallbackTask);
         }
     }
 
@@ -258,6 +249,7 @@ public abstract class ContinueQRCodeView extends RelativeLayout implements Camer
         mHandler = null;
         mDelegate = null;
         mOneShotPreviewCallbackTask = null;
+        continuePreviewCallbackTask = null;
     }
 
     /**
@@ -339,31 +331,32 @@ public abstract class ContinueQRCodeView extends RelativeLayout implements Camer
      */
     @Override
     public void onPreviewFrame(final byte[] data, final Camera camera) {
-        if (ContinueBGAQRCodeUtil.isDebug()) {
-            ContinueBGAQRCodeUtil.d("两次 onPreviewFrame 时间间隔：" + (System.currentTimeMillis() - sLastPreviewFrameTime));
-            sLastPreviewFrameTime = System.currentTimeMillis();
-        }
-        //持续识别
+
+        //zbar的log
+//        if (ContinueBGAQRCodeUtil.isDebug()) {
+//            ContinueBGAQRCodeUtil.d("两次 onPreviewFrame 时间间隔：" + (System.currentTimeMillis() - sLastPreviewFrameTime));
+//            sLastPreviewFrameTime = System.currentTimeMillis();
+//        }
+
+        //TODO log测试
+        Log.d(TAG, "两次 onPreviewFrame 时间间隔：" + (System.currentTimeMillis() - sLastPreviewFrameTime));
+        sLastPreviewFrameTime = System.currentTimeMillis();
         if (mCamera != null) {
-            mCamera.setOneShotPreviewCallback(ContinueQRCodeView.this);
+            //让连续识别的相机抖动聚焦起来
+            startContinuousAutoFocus();
         }
 
         if (mHandler != null) {
             mHandler.post(new Runnable() {
                 @Override
                 public void run() {
+                    long startTime = System.currentTimeMillis();
                     ContinueScanResult scanResult = processData(data);
                     onPostParseData(scanResult);
+                    Log.d(TAG, "异步处理二维码帧耗时=" + (System.currentTimeMillis() - startTime));
                 }
             });
         }
-
-//        if ((mProcessDataTask != null && (mProcessDataTask.getStatus() == AsyncTask.Status.PENDING
-//                || mProcessDataTask.getStatus() == AsyncTask.Status.RUNNING))) {
-//            return;
-//        }
-//
-//        mProcessDataTask = new ContinueProcessDataTask(camera, data, this, ContinueBGAQRCodeUtil.isPortrait(getContext())).perform();
     }
 
 
@@ -372,36 +365,47 @@ public abstract class ContinueQRCodeView extends RelativeLayout implements Camer
     protected abstract ContinueScanResult processBitmapData(Bitmap bitmap);
 
     /**
-     * TODO 处理结果 继续预览还是 返回结果
+     * 返回结果
      *
      * @param scanResult
      */
     void onPostParseData(ContinueScanResult scanResult) {
 
         String result = scanResult == null ? null : scanResult.result;
-        if (TextUtils.isEmpty(result)) {
-            try {
-                //持续识别
-                if (mCamera != null) {
-                    mCamera.setOneShotPreviewCallback(ContinueQRCodeView.this);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else {
+        if (!TextUtils.isEmpty(result)) {
             try {
                 if (mDelegate != null) {
+                    //返回结果
                     mDelegate.onScanQRCodeSuccess(result);
-                    //持续识别
-                    if (mCamera != null) {
-                        mCamera.setOneShotPreviewCallback(ContinueQRCodeView.this);
-                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     }
+
+    /**
+     * 说明:手机单次识别二维码，不用添加此聚焦，该功能是给极限连续识别功能使用的
+     * <p>
+     * 极限识别 连续对焦
+     */
+    private void startContinuousAutoFocus() {
+        try {
+            Camera.Parameters parameters = mCamera.getParameters();
+            //TODO 微距模式
+            // 连续对焦
+            parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
+            // 微距
+//            parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_MACRO);//TODO
+
+            mCamera.setParameters(parameters);
+            // 要实现连续的自动对焦，这一句必须加上
+            mCamera.cancelAutoFocus();
+        } catch (Exception e) {
+            Log.e("SJY", "连续对焦失败");
+        }
+    }
+
 
     void onPostParseBitmapOrPicture(ContinueScanResult scanResult) {
         if (mDelegate != null) {
@@ -410,12 +414,34 @@ public abstract class ContinueQRCodeView extends RelativeLayout implements Camer
         }
     }
 
+    //方式1：识别一次
     private Runnable mOneShotPreviewCallbackTask = new Runnable() {
         @Override
         public void run() {
             if (mCamera != null) {
                 try {
+
                     mCamera.setOneShotPreviewCallback(ContinueQRCodeView.this);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    };
+
+    //方式2：持续识别
+    private Runnable continuePreviewCallbackTask = new Runnable() {
+        @Override
+        public void run() {
+            if (mCamera != null) {
+                try {
+                    mCamera.setPreviewCallback(ContinueQRCodeView.this);
+                    //持续聚焦
+                    mCamera.autoFocus(new Camera.AutoFocusCallback() {
+                        public void onAutoFocus(boolean success, Camera camera) {
+                            startContinuousAutoFocus();
+                        }
+                    });
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
