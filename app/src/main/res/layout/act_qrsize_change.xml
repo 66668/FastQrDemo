@@ -12,15 +12,16 @@
     <RelativeLayout
         android:id="@+id/ly_img"
         android:layout_width="match_parent"
-        android:layout_height="850px"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true">
         <!--识别结果-->
         <ImageView
             android:id="@+id/img_result"
-            android:layout_width="800px"
-            android:layout_height="800px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:background="@drawable/ic_launcher_background" />
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_launcher_background" />
     </RelativeLayout>
 
     <!--控制台-->

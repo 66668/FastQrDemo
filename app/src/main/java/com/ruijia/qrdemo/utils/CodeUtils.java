@@ -31,7 +31,7 @@ public class CodeUtils {
         if(content==null||TextUtils.isEmpty(content)){
             return null;
         }
-        Log.d("SJY", "生成二维码bitmap="+content.length());
+//        Log.d("SJY", "生成二维码bitmap="+content.length());
         Hashtable<EncodeHintType, Object> hints = new Hashtable<EncodeHintType, Object>();
         // 指定纠错等级
         hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);

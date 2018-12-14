@@ -1,1 +1,1 @@
-include ':app', ':lib_zxing', ':lib_filepicker', ':lib_zbar'
+include ':app', ':lib_zxing', ':lib_filepicker', ':lib_zbar', ':lib_zxing_core'

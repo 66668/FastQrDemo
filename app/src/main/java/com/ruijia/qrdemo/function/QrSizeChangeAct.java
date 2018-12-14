@@ -80,7 +80,7 @@ public class QrSizeChangeAct extends AppCompatActivity implements View.OnClickLi
             @Override
             protected void onPostExecute(final Bitmap bitmap) {
                 orgBitmap = bitmap;
-                Log.d(TAG, "二维码生成时间=" + (System.currentTimeMillis() - createBitmapStartTime));
+                Log.d(TAG, "(1)二维码生成时间=" + (System.currentTimeMillis() - createBitmapStartTime));
                 changeBitmapSize();
 
             }
@@ -97,50 +97,55 @@ public class QrSizeChangeAct extends AppCompatActivity implements View.OnClickLi
         //获取宽高
         int width = orgBitmap.getWidth();
         int height = orgBitmap.getHeight();
-        Log.d(TAG, "orgBitmap原始尺寸=" + width + "*" + height);
+        Log.d(TAG, "(2)orgBitmap原始尺寸=" + width + "*" + height);
 
         if (width > 0 && width < 800) {//400级别
             // 计算缩放比例.
-            float scaleWidth = (qrSize) / width;
+            float scaleWidth = ((float) qrSize) / width;
             float scaleHeight = ((float) qrSize) / height;
+            Log.d(TAG, "修改bitmap尺寸--缩放比例=" + scaleHeight);
 
             // 取得想要缩放的matrix参数.
             Matrix matrix = new Matrix();
             matrix.postScale(scaleWidth, scaleHeight);
             newBitmap = Bitmap.createBitmap(orgBitmap, 0, 0, width, height, matrix, true);
-            Log.d(TAG, "修改bitmap尺寸耗时=" + (System.currentTimeMillis() - changeBitmapStartTime));
+            Log.d(TAG, "(2)修改bitmap尺寸耗时=" + (System.currentTimeMillis() - changeBitmapStartTime));
         } else if (width >= 400 && width < 600) {
-            Log.d(TAG, "修改bitmap尺寸耗时=" + (System.currentTimeMillis() - changeBitmapStartTime));
+            Log.d(TAG, "(2)修改bitmap尺寸耗时=" + (System.currentTimeMillis() - changeBitmapStartTime));
         } else if (width >= 600 && width < 800) {
-            Log.d(TAG, "修改bitmap尺寸耗时=" + (System.currentTimeMillis() - changeBitmapStartTime));
+            Log.d(TAG, "(2)修改bitmap尺寸耗时=" + (System.currentTimeMillis() - changeBitmapStartTime));
         } else if (width >= 800) {
-            Log.d(TAG, "修改bitmap尺寸耗时=" + (System.currentTimeMillis() - changeBitmapStartTime));
+            Log.d(TAG, "(2)修改bitmap尺寸耗时=" + (System.currentTimeMillis() - changeBitmapStartTime));
         }
-
-        //下一步
-        changeImgSize();
+        if (newBitmap != null) {
+            //获取宽高
+            int newwidth = newBitmap.getWidth();
+            int newheight = newBitmap.getHeight();
+            Log.d(TAG, "(2)newBitmap尺寸=" + newwidth + "*" + newheight);
+            //下一步
+            changeImgSize();
+        } else {
+            Log.e(TAG, "没有生成新的二维码");
+        }
 
     }
 
     //步骤三
     private void changeImgSize() {
-        if (newBitmap == null) {
-            Log.e(TAG, "没有生成新的二维码");
-            return;
-        }
+
         changeImgStartTime = System.currentTimeMillis();
         ViewGroup.LayoutParams params = img_result.getLayoutParams();
 
         if (imgSize == defaultImgSize) {
-            Log.d(TAG, "原始ImageView尺寸=" + params.height + "*" + params.width);
+            Log.d(TAG, "（3）原始ImageView尺寸=" + params.height + "*" + params.width);
             //执行下一步
             showResult();
         } else {
             params.height = imgSize;
             params.width = imgSize;
             img_result.setLayoutParams(params);
-            Log.d(TAG, "修改ImageView尺寸=" + params.height + "*" + params.width);
-            Log.d(TAG, "修改ImageView尺寸耗时=" + (System.currentTimeMillis() - changeImgStartTime));
+            Log.d(TAG, "（3）修改ImageView尺寸=" + params.height + "*" + params.width);
+            Log.d(TAG, "（3）修改ImageView尺寸耗时=" + (System.currentTimeMillis() - changeImgStartTime));
             //执行下一步
             showResult();
         }
@@ -212,7 +217,7 @@ public class QrSizeChangeAct extends AppCompatActivity implements View.OnClickLi
                 }
                 break;
 
-            case R.id.et_img://尺寸
+            case R.id.btn_imgSize://尺寸
                 String str1 = et_img.getText().toString();
                 if (TextUtils.isEmpty(str1)) {
                     imgSize = defaultImgSize;
@@ -296,7 +301,7 @@ public class QrSizeChangeAct extends AppCompatActivity implements View.OnClickLi
         params.height = defaultImgSize;
         params.width = defaultImgSize;
         img_result.setLayoutParams(params);
-        Log.d(TAG, "重置： " + params.height + "*" + params.width);
+        Log.d(TAG, "重置ImageView： " + params.height + "*" + params.width);
     }
 
 
