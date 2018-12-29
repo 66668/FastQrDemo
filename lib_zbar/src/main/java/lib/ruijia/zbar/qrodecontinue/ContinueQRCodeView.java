@@ -402,7 +402,7 @@ public abstract class ContinueQRCodeView extends RelativeLayout implements Camer
             // 要实现连续的自动对焦，这一句必须加上
             mCamera.cancelAutoFocus();
         } catch (Exception e) {
-            Log.e("SJY", "连续对焦失败");
+            Log.e("error", "连续对焦失败:"+e.toString());
         }
     }
 
