@@ -214,7 +214,7 @@ public class IOUtils {
             }
             //二进制流转base64
             result = Base64.encodeToString(bos.toByteArray(), Base64.DEFAULT);
-            Log.d("SJY", "result=" + result);
+//            Log.d("SJY", "result=" + result);
             return result;
 
         } catch (Exception e) {
