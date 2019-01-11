@@ -203,6 +203,7 @@ public class SendMainAct extends AppCompatActivity implements View.OnClickListen
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        System.gc();
     }
 
     //=====================================private处理==========================================
